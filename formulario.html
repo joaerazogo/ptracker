@@ -1,0 +1,78 @@
+<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+<link rel = "stylesheet"
+  href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel = "stylesheet"
+  href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+<script type = "text/javascript"
+  src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+</script>
+<div style="text-align:center">
+
+<script>
+var http = new XMLHttpRequest();
+var url = "https://www.evstest.com/G3v1LastVersion/portal/portal_action.php";
+var email = document.getElementById('email');
+var password = document.getElementById('pass');
+//http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+http.open("POST", url, true);
+
+http.onreadystatechange = function() {
+    if(http.readyState == 4 && http.status == 200) {
+       //aqui obtienes la respuesta de tu peticion
+       alert(http.responseText);
+    }
+}
+http.send(JSON.stringify({email:email, password: password}));
+
+var objJSON = {
+    pfd: "login",
+    fpU: fpU,
+    fpP: fpP,
+    browserInfo: {
+        appCodeName: navigator.appCodeName,
+        appName: navigator.appName,
+        appVersion: navigator.appVersion,
+        cookieEnabled: navigator.cookieEnabled,
+        language: navigator.language,
+        platform: navigator.platform,
+        userAgent: navigator.userAgent
+    },
+    datasite: {
+            "@accountID": "2",
+            "@siteID": "3"
+    }
+};
+
+$('#registrar').click(function(){
+    var data = objJSON;
+    $.ajax({
+        url : 'https://www.evstest.com/G3v1LastVersion/portal/portal_action.php',
+        data : data,
+        method : 'post', //en este caso
+        dataType : 'json',
+        success : function(response){
+            alert("funciona bien");
+        },
+        error: function(error){
+            alert("No funciona");
+        }
+    });
+});
+
+</script>
+<form name="login" action="">
+    <input type="email" id="email" name="user" placeholder="E-mail">
+    <input type="password" name="pass" id="pass" placeholder="Password">
+    <button type="submit" id="send" onclick="sendForm()">Enter</button>
+    <div class="moreoptions">
+        <div class="ico">
+            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+            <a href="#">I forgot my password</a>
+        </div>
+        <div class="ico" id="registrar"
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+            <a href="#">Register</a>
+        </div>
+    </div>
+</form>
